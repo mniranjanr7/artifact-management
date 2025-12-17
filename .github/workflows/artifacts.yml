@@ -1,6 +1,6 @@
 name: artifact-management
 on:
-  workflow-dispatch:
+  workflow_dispatch:
   push:
     branches: ["main"]
 tasks:
