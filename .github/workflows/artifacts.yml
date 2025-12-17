@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
-tasks:
+jobs:
   build-react-app:
     runs-on: ubuntu-latest
     steps:
