@@ -49,4 +49,5 @@ jobs:
       - name: Verfiy the react-build-files
         run: |
           echo "list the dowload files"
+          pwd
           ls -lthr react-buld-download-location
