@@ -1,0 +1,42 @@
+name: artifact-management
+on:
+  workflow-dispatch:
+  push:
+    branches: ["main"]
+tasks:
+  build-react-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      - name: setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Install Dep
+        run: npm ci
+      - name: Build Project
+        run: npm run build
+      # This usually creates a 'build/' or 'dist/' folder
+
+      # ---------------------------------------------------
+      # TASK: Upload the artifact so other jobs can use it
+      # ---------------------------------------------------
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build-files
+          path: build/
+          retention-days: 1
+  verify-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: react-build-files
+          path: react-buld-download-location
+      - name: Verfiy the react-build-files
+        run: |
+          echo "list the dowload files"
+          ls -lthr react-buld-download-location
